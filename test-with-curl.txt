@@ -1,0 +1,21 @@
+curl -X GET "https://nodejs-01-patrice.c9.io/hello" --trace-ascii /dev/stdout
+
+> GET /hello HTTP/1.1
+< HTTP/1.1 401 Unauthorized
+
+curl -X POST -H "Content-Type: application/x-www-form-urlencoded" -d 'username=John&password=secret' "https://nodejs-01-patrice.c9.io/login" --trace-ascii /dev/stdout
+
+> POST /login HTTP/1.1
+> Content-Type: application/x-www-form-urlencoded
+> username=John&password=secret
+< HTTP/1.1 200 OK
+< {
+<   "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvaG4iLCJpYXQiOjE0ODM2OTU3NTJ9.ZN8eLcznnDmwv5xWWZlLx5ysan3M6ZKm5lpndG9MGwg"
+> }
+
+curl -X GET -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvaG4iLCJpYXQiOjE0ODM2OTU3NTJ9.ZN8eLcznnDmwv5xWWZlLx5ysan3M6ZKm5lpndG9MGwg" "https://nodejs-01-patrice.c9.io/hello" --trace-ascii /dev/stdout
+
+> GET /hello HTTP/1.1
+> Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkpvaG4iLCJpYXQiOjE0ODM2OTU3NTJ9.ZN8eLcznnDmwv5xWWZlLx5ysan3M6ZKm5lpndG9MGwg
+< HTTP/1.1 200 OK
+< { "message":"Hello John!" }
